@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
     Actividades.associate = function (models) {
-        Actividades.belongsTo(models.Entregables, {
+        Actividades.belongsTo(models.Indicadores, {
             foreignKey: "id_indicadores",
             as: "indicadores",
             });

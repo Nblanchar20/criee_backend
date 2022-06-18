@@ -37,9 +37,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   GastosActividades.associate = function (models) {
-    GastosActividades.belongsTo(models.Proyectos, {
+    GastosActividades.belongsTo(models.Actividades, {
       foreignKey: "id_actividades",
-      as: "proyectos",
+      as: "actividades",
     });
   };
 
