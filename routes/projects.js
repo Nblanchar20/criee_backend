@@ -1,5 +1,5 @@
 const express = require('express')
-const  ProyectoService= require('../services/proyecto')
+const  ProyectoService= require('../services/proyect')
 
 function actionApi(app) {
     const router = express.Router();

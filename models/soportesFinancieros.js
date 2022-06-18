@@ -1,7 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Objetivos = sequelize.define(
-    "Objetivos",
+  const SoportesFinancieros = sequelize.define(
+    "SoportesFinancieros",
     {
       id: {
         type: DataTypes.BIGINT(20),
@@ -12,32 +12,36 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(500),
         allowNull: false,
       },
-      descripcion:{
+      ruta: {
         type: DataTypes.TEXT,
-        allowNull:false
+        allowNull: false,
+      },
+      vp_tipo_soporte_financieros: {
+        type: DataTypes.BIGINT(20),
+        allowNull: false,
       },
       estado: {
         type: DataTypes.TINYINT(4),
         defaultValue: 1,
         allowNull: false,
       },
-      id_proyectos: {
+      id_entregables: {
         type: DataTypes.BIGINT(20),
         allowNull: false,
       }
     },
     {
-      tableName: "criie_objetivos_proyecto",
+      tableName: "criie_soportes_financieros",
       timestamps: false,
     }
   );
 
-  Objetivos.associate = function (models) {
-    Objetivos.belongsTo(models.Proyectos, {
-      foreignKey: "id_proyectos",
-      as: "proyectos",
+  SoportesFinancieros.associate = function (models) {
+    SoportesFinancieros.belongsTo(models.Entregables, {
+      foreignKey: "id_entregables",
+      as: "entregables",
     });
   };
 
-  return Objetivos;
+  return SoportesFinancieros;
 };

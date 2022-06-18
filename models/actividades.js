@@ -1,7 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Proyectos = sequelize.define(
-    "Proyectos",
+  const Actividades = sequelize.define(
+    "Actividades",
     {
       id: {
         type: DataTypes.BIGINT(20),
@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(500),
         allowNull: false,
       },
+      descripcion_tecnica: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
       fecha_inicio:{
         type: DataTypes.DATE,
         allowNull:false
@@ -20,16 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull:false
       },
-      fecha_inicio_esperado:{
-        type: DataTypes.DATE,
-        allowNull:false
-      },
-      fecha_fin_esperado:{
-        type: DataTypes.DATE,
-        allowNull:false
-      },
-      alcance:{
-        type: DataTypes.TEXT,
+      vp_estado_actividad:{
+        type: DataTypes.BIGINT(20),
         allowNull:false
       },
       estado: {
@@ -37,13 +33,24 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 1,
         allowNull: false,
       },
+      id_indicadores:{
+        type: DataTypes.BIGINT(20),
+        allowNull:false
+      },
     },
     {
-      tableName: "criie_proyecto",
+      tableName: "criie_actividades_proyecto",
       timestamps: false,
     }
   );
 
+    Actividades.associate = function (models) {
+        Actividades.belongsTo(models.Entregables, {
+            foreignKey: "id_indicadores",
+            as: "indicadores",
+            });
+    }
 
-  return Proyectos;
+
+  return Actividades;
 };

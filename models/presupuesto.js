@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 1,
         allowNull: false,
       },
-      id_proyecto: {
+      id_proyectos: {
         type: DataTypes.BIGINT(20),
         allowNull: false,
       }
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Presupuesto.associate = function (models) {
     Presupuesto.belongsTo(models.Proyectos, {
-      foreignKey: "id_proyecto",
+      foreignKey: "id_proyectos",
       as: "proyectos",
     });
   };

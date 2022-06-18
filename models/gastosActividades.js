@@ -1,43 +1,47 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Objetivos = sequelize.define(
-    "Objetivos",
+  const GastosActividades = sequelize.define(
+    "GastosActividades",
     {
       id: {
         type: DataTypes.BIGINT(20),
         primaryKey: true,
         autoIncrement: true,
       },
-      nombre: {
-        type: DataTypes.STRING(500),
+      gasto: {
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false,
       },
-      descripcion:{
+      descripcion: {
         type: DataTypes.TEXT,
-        allowNull:false
+        allowNull: false,
+      },
+      descripcion: {
+        type: DataTypes.DATE,
+        allowNull: false,
       },
       estado: {
         type: DataTypes.TINYINT(4),
         defaultValue: 1,
         allowNull: false,
       },
-      id_proyectos: {
+      id_actividades: {
         type: DataTypes.BIGINT(20),
         allowNull: false,
       }
     },
     {
-      tableName: "criie_objetivos_proyecto",
+      tableName: "criie_detalle_gasto_actividad",
       timestamps: false,
     }
   );
 
-  Objetivos.associate = function (models) {
-    Objetivos.belongsTo(models.Proyectos, {
-      foreignKey: "id_proyectos",
+  GastosActividades.associate = function (models) {
+    GastosActividades.belongsTo(models.Proyectos, {
+      foreignKey: "id_actividades",
       as: "proyectos",
     });
   };
 
-  return Objetivos;
+  return GastosActividades;
 };

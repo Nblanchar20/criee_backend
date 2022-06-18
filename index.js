@@ -4,8 +4,10 @@ const helmet = require('helmet'); */
 const app = express();
 
 const { config } = require('./config/index');
-const proyectoApi = require('./routes/proyecto');
+const proyectoApi = require('./routes/projects');
+const ObjetivoApi = require('./routes/objectives');
 proyectoApi(app) 
+ObjetivoApi(app) 
 /* const userApi = require('./routes/users');
 const userGroupApi = require('./routes/usersGroup');
 const actionApi = require('./routes/actions');

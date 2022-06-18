@@ -1,7 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Objetivos = sequelize.define(
-    "Objetivos",
+  const Indicadores = sequelize.define(
+    "Indicadores",
     {
       id: {
         type: DataTypes.BIGINT(20),
@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
       nombre: {
         type: DataTypes.STRING(500),
         allowNull: false,
-      },
-      descripcion:{
-        type: DataTypes.TEXT,
-        allowNull:false
       },
       estado: {
         type: DataTypes.TINYINT(4),
@@ -27,17 +23,17 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      tableName: "criie_objetivos_proyecto",
+      tableName: "criie_indicadores",
       timestamps: false,
     }
   );
 
-  Objetivos.associate = function (models) {
-    Objetivos.belongsTo(models.Proyectos, {
+  Indicadores.associate = function (models) {
+    Indicadores.belongsTo(models.Proyectos, {
       foreignKey: "id_proyectos",
       as: "proyectos",
     });
   };
 
-  return Objetivos;
+  return Indicadores;
 };

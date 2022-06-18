@@ -1,4 +1,4 @@
-const {sequelize, Proyectos: proyectoModel} =require('../models/');
+const {sequelize, Proyectos: proyectoModel} =require('../models');
 
 class ProyectoService{
 
