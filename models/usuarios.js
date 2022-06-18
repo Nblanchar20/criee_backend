@@ -37,14 +37,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TINYINT(4),
         defaultValue: 1,
         allowNull: false,
-      },
+      },id: {
+        type: DataTypes.BIGINT(20),
+        allowNull: false,
+      }
     },
     {
       tableName: "criie_usuarios",
       timestamps: false,
     }
   );
-
-
+  Usuarios.associate = function (models) {
+    Usuarios.belongsTo(models.Usuarios, {
+      foreignKey: "id_usuarios",
+      as: "usuarios",
+      });
+  }
   return Usuarios;
 };
