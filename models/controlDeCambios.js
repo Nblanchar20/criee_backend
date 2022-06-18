@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       ruta: {
-        type: DataTypes.STRING(),
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       vp_tipo_soporte_control_cambio: {
