@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      descripcion: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
       estado: {
         type: DataTypes.TINYINT(4),
         defaultValue: 1,

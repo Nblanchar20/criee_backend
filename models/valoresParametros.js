@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       orden: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER(11),
         allowNull: false,
       },
       estado: {

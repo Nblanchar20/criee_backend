@@ -37,7 +37,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TINYINT(4),
         defaultValue: 1,
         allowNull: false,
-      },id: {
+      },
+      id_grupoUsuarios: {
         type: DataTypes.BIGINT(20),
         allowNull: false,
       }
@@ -48,9 +49,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Usuarios.associate = function (models) {
-    Usuarios.belongsTo(models.Usuarios, {
-      foreignKey: "id_usuarios",
-      as: "usuarios",
+    Usuarios.belongsTo(models.GrupoUsuarios, {
+      foreignKey: "id_grupoUsuarios",
+      as: "grupoUsuarios",
       });
   }
   return Usuarios;
