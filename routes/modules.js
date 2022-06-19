@@ -1,13 +1,13 @@
 const expresss = require("express");
 const ModuleService = require("../services/modules");
 
-function moduleApi(app, protectedRoutes) {
+function moduleApi(app,) {
   const router = expresss.Router();
   app.use("/module", router);
 
   const moduleService = new ModuleService();
 
-  router.get("/:moduleId", protectedRoutes, async function (req, res, next) {
+  router.get("/:moduleId", async function (req, res, next) {
     const { moduleId } = req.params;
 
     try {
@@ -24,7 +24,7 @@ function moduleApi(app, protectedRoutes) {
     }
   });
 
-  router.post("/getModules", protectedRoutes, async function (req, res, next) {
+  router.post("/getModules", async function (req, res, next) {
     const { body: where } = req;
     try {
       const modules = await moduleService.getModules(where);

@@ -1,13 +1,13 @@
 const expresss = require("express");
 const UserGroupService = require("../services/userGroups");
 
-function userGroupApi(app, protectedRoutes) {
+function userGroupApi(app) {
   const router = expresss.Router();
   app.use("/userGroup", router);
 
   const userGroupService = new UserGroupService();
 
-  router.get("/:groupId", protectedRoutes, async function (req, res, next) {
+  router.get("/:groupId", async function (req, res, next) {
     const { groupId } = req.params;
 
     try {
@@ -24,7 +24,7 @@ function userGroupApi(app, protectedRoutes) {
     }
   });
 
-  router.post("/getGroups", protectedRoutes, async function (req, res, next) {
+  router.post("/getGroups", async function (req, res, next) {
     const { body: where } = req;
     try {
       const groups = await userGroupService.getGroups(where);
@@ -41,7 +41,7 @@ function userGroupApi(app, protectedRoutes) {
     }
   });
 
-  router.post("/", protectedRoutes, async function (req, res, next) {
+  router.post("/", async function (req, res, next) {
     const { body: data } = req;
     try {
       const groupId = await userGroupService.createGroup(data);
@@ -54,7 +54,7 @@ function userGroupApi(app, protectedRoutes) {
     }
   });
 
-  router.put("/:groupId", protectedRoutes, async function (req, res, next) {
+  router.put("/:groupId", async function (req, res, next) {
     const { body: data } = req;
     const { groupId } = req.params;
     try {
@@ -68,7 +68,7 @@ function userGroupApi(app, protectedRoutes) {
     }
   });
 
-  router.delete("/:groupId", protectedRoutes, async function (req, res, next) {
+  router.delete("/:groupId", async function (req, res, next) {
     const { groupId } = req.params;
     const { body: data } = req;
 

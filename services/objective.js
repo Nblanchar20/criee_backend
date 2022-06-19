@@ -3,7 +3,7 @@ const {sequelize, Objetivos: objetivoModel} =require('../models');
 class objetiveService{
 
     async getObjetivo(id){
-        const objetivo = await objetivoModel.finfOne({
+        const objetivo = await objetivoModel.findOne({
             where: {
                 id,
                 estado: 1,

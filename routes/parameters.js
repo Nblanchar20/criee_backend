@@ -1,13 +1,13 @@
 const expresss = require("express");
 const ParameterService = require("../services/parameters");
 
-function ParameterApi(app, protectedRoutes) {
+function ParameterApi(app, ) {
   const router = expresss.Router();
   app.use("/parameter", router);
 
   const parameterService = new ParameterService();
 
-  router.get("/:parameterId", protectedRoutes, async function (req, res, next) {
+  router.get("/:parameterId", async function (req, res, next) {
     const { parameterId } = req.params;
 
     try {
@@ -26,7 +26,6 @@ function ParameterApi(app, protectedRoutes) {
 
   router.post(
     "/getParameters",
-    protectedRoutes,
     async function (req, res, next) {
       const { body: where } = req;
       try {
@@ -45,7 +44,7 @@ function ParameterApi(app, protectedRoutes) {
     }
   );
 
-  router.post("/", protectedRoutes, async function (req, res, next) {
+  router.post("/",async function (req, res, next) {
     const { body: data } = req;
     try {
       const created = await parameterService.createParameter(data);
@@ -56,7 +55,7 @@ function ParameterApi(app, protectedRoutes) {
     }
   });
 
-  router.put("/:parameterId", protectedRoutes, async function (req, res, next) {
+  router.put("/:parameterId", async function (req, res, next) {
     const { body: data } = req;
     const { parameterId } = req.params;
     try {
@@ -73,7 +72,6 @@ function ParameterApi(app, protectedRoutes) {
 
   router.delete(
     "/:parameterId",
-    protectedRoutes,
     async function (req, res, next) {
       const { parameterId } = req.params;
       const { body: data } = req;

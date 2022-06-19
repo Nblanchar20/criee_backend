@@ -1,7 +1,7 @@
 const expresss = require("express");
 const PermissionService = require("../services/permissions");
 
-function userGroupApi(app, protectedRoutes) {
+function userGroupApi(app) {
   const router = expresss.Router();
   app.use("/permission", router);
 
@@ -9,7 +9,6 @@ function userGroupApi(app, protectedRoutes) {
 
   router.get(
     "/:permissionId",
-    protectedRoutes,
     async function (req, res, next) {
       const { permissionId } = req.params;
 
@@ -30,7 +29,6 @@ function userGroupApi(app, protectedRoutes) {
 
   router.post(
     "/getPermissions",
-    protectedRoutes,
     async function (req, res, next) {
       const { body: where } = req;
       try {
@@ -51,7 +49,6 @@ function userGroupApi(app, protectedRoutes) {
 
   router.post(
     "/getPermissionsByUserGroup",
-    protectedRoutes,
     async function (req, res, next) {
       const { body: where } = req;
       try {
@@ -72,7 +69,7 @@ function userGroupApi(app, protectedRoutes) {
     }
   );
 
-  router.post("/", protectedRoutes, async function (req, res, next) {
+  router.post("/", async function (req, res, next) {
     const { body: data } = req;
     try {
       const created = await permissionService.createPermission(data);
@@ -86,7 +83,6 @@ function userGroupApi(app, protectedRoutes) {
 
   router.put(
     "/:permissionId",
-    protectedRoutes,
     async function (req, res, next) {
       const { body: data } = req;
       const { permissionId } = req.params;
@@ -107,7 +103,6 @@ function userGroupApi(app, protectedRoutes) {
 
   router.delete(
     "/:permissionId",
-    protectedRoutes,
     async function (req, res, next) {
       const { permissionId } = req.params;
       const { body: data } = req;

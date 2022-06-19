@@ -7,17 +7,17 @@ const { config } = require('./config/index');
 
 
 const actionApi = require('./routes/actions');
-actionApi(app)
-/* const moduleApi = require('./routes/modules');
+
+const moduleApi = require('./routes/modules');
 const moduleActionApi = require("./routes/modulesActions");
 const ObjetivoApi = require('./routes/objectives');
 const parameterApi = require("./routes/parameters");
 const permissionApi = require("./routes/permissions");
 const proyectoApi = require('./routes/projects');
 const sessionApi = require("./routes/sessions");
-const userGroupApi = require("./routes/userGroups");
+/* const userGroupApi = require("./routes/userGroups"); */
  
-const fileApi = require('./routes/files'); */
+/*const fileApi = require('./routes/files'); */
 app.use(cors());
 //app.use(helmet());
 /**
@@ -33,17 +33,18 @@ app.use(wrapErrors);
 app.use(errorHandler); */
 
 
-/* proyectoApi(app) */
+
 /* 
-fileApi(app)
+fileApi(app)*/
+actionApi(app)
 moduleApi(app)
 moduleActionApi(app)
 ObjetivoApi(app)
 parameterApi(app)
 permissionApi(app)
-
+proyectoApi(app)
 sessionApi(app)
-userGroupApi(app) */
+/* userGroupApi(app) */
 
 app
   .listen(config.port, function () {

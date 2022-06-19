@@ -1,13 +1,13 @@
 const expresss = require("express");
 const ModuleActionService = require("../services/modulesActions");
 
-function actionModuleApi(app, protectedRoutes) {
+function actionModuleApi(app) {
   const router = expresss.Router();
   app.use("/moduleAction", router);
 
   const moduleActionService = new ModuleActionService();
 
-  router.get("/:moduleId", protectedRoutes, async function (req, res, next) {
+  router.get("/:moduleId", async function (req, res, next) {
     const { moduleId } = req.params;
 
     try {
@@ -26,7 +26,6 @@ function actionModuleApi(app, protectedRoutes) {
 
   router.post(
     "/getActionsModules",
-    protectedRoutes,
     async function (req, res, next) {
       const { body: where } = req;
       try {
@@ -47,7 +46,6 @@ function actionModuleApi(app, protectedRoutes) {
 
   router.post(
     "/getActionsModulesByModules",
-    protectedRoutes,
     async function (req, res, next) {
       const { body: where } = req;
       try {
@@ -68,7 +66,7 @@ function actionModuleApi(app, protectedRoutes) {
     }
   );
 
-  router.post("/", protectedRoutes, async function (req, res, next) {
+  router.post("/", async function (req, res, next) {
     const { body: data } = req;
     try {
       const created = await moduleActionService.createActionsModules(data);
@@ -79,7 +77,7 @@ function actionModuleApi(app, protectedRoutes) {
     }
   });
 
-  router.put("/:moduleId", protectedRoutes, async function (req, res, next) {
+  router.put("/:moduleId", async function (req, res, next) {
     const { body: data } = req;
     const { moduleId } = req.params;
     try {
@@ -94,7 +92,7 @@ function actionModuleApi(app, protectedRoutes) {
     }
   });
 
-  router.delete("/:moduleId", protectedRoutes, async function (req, res, next) {
+  router.delete("/:moduleId", async function (req, res, next) {
     const { moduleId } = req.params;
     const { body: data } = req;
 
