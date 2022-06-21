@@ -1,39 +1,39 @@
 const express = require('express')
-const  ObjectiveService= require('../services/objective')
+const  UserProjectService= require('../services/userProject')
 
 function actionApi(app) {
     const router = express.Router();
-    app.use('/objective', router)
+    app.use('/userProject', router)
 
-    const objectiveService = new ObjectiveService();
+    const userProjectService = new UserProjectService();
 
-    // Routes objectives
-    router.get("/:objectiveId", async function(req, res, next){
-        const {objectiveId}= req.params;
+    // Routes userProjects
+    router.get("/:userProjectId", async function(req, res, next){
+        const {userProjectId}= req.params;
 
     try{
-        const objective = await objectiveService.getObjective(objectiveId);
+        const userProject = await userProjectService.getUserProject(userProjectId);
 
         res.status(200).json({
-            objective,
-            message: objective
-            ?"Objetivo Encontrado"
-            :"No se encontro el Objetivo con ese ID"
+            userProject,
+            message: userProject
+            ?"Registro Encontrado"
+            :"No se encontro el Registro con ese ID"
         });
     }catch(err){
         next(err);
     }
     });
 
-    router.post("/getObjectives", async function(req,res,next){
+    router.post("/getuserProjects", async function(req,res,next){
         const {body: where} = req;
         try {
-            const objectives = await objectiveService.getObjectives(where);
+            const userProjects = await userProjectService.getUserProjects(where);
             res.status(200).json({
-                objectives,
+                userProjects,
                 message:
-                objectives.length>0
-                    ? "Objetivos Listados"
+                userProjects.length>0
+                    ? "Registros Listados"
                     : "No se encuentran registros"
             })
         } catch (err) {
@@ -44,21 +44,21 @@ function actionApi(app) {
     router.post("/", async function (req, res, next) {
         const { body: data } = req;
         try {
-          const objective = await objectiveService.createObjective(data);
+          const userProject = await userProjectService.createUserProject(data);
     
-          res.status(201).json({ objective });
+          res.status(201).json({ userProject });
         } catch (error) {
           next(error);
         }
     });
 
     router.post(
-        "/updateObjective/:id",
+        "/updateuserProject/:id",
         async function (req, res, next) {
           const { body: data } = req;
           const { id } = req.params;
           try {
-            const updated = await objectiveService.updateObjective(
+            const updated = await userProjectService.updatUserProject(
               data,
               id
             );    
@@ -77,7 +77,7 @@ function actionApi(app) {
           const { id } = req.params;
     
           try {
-            const deleted = await objectiveService.deleteObjective(
+            const deleted = await userProjectService.deleteUserProject(
               id
             );
     

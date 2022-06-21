@@ -1,13 +1,13 @@
 const {sequelize,
-    Objetivos: objectiveModel,
+    Entregables: deliverableModel,
     Proyectos: projectModel
    } =require('../models');
 
-class ObjectiveService{
+class DeliverableService{
 
-// Servicios objectives
-async getObjective(id){
-     const objective = await objectiveModel.findOne({
+// Servicios deliverables
+async getDeliverable(id){
+     const deliverable = await deliverableModel.findOne({
          where: {
              id,
              estado: 1,
@@ -18,10 +18,10 @@ async getObjective(id){
           where:{ estado:1 }
         }
      });
-     return objective
+     return deliverable
  }
- async getObjectives(where){
-     const objectives = await objectiveModel.findAll({
+ async getDeliverables(where){
+     const deliverables = await deliverableModel.findAll({
          where: {...where}, 
          order: [["id", "DESC"]],
          include:{
@@ -30,56 +30,56 @@ async getObjective(id){
           where:{ estado:1 }
         }
      });
-     return objectives;
+     return deliverables;
  }
- async createObjective(data) {
+ async createDeliverable(data) {
      const t = await sequelize.transaction();    
      try {
-       const { id: objectiveId } = await objectiveModel.create(
+       const { id: deliverableId } = await deliverableModel.create(
          { ...data },
          {
            transaction: t,
          }
        );    
        await t.commit();
-       return objectiveId;
+       return deliverableId;
      } catch (error) {
        await t.rollback();
        throw new Error(error);
      }
  }
 
- async updateObjective(data, objectiveId) {
+ async updateDeliverable(data, deliverableId) {
    const t = await sequelize.transaction();  
    try {
-     await objectiveModel.update(
+     await deliverableModel.update(
        { ...data },
        {
-         where: { id: objectiveId },
+         where: { id: deliverableId },
          transaction: t,
        }
      );  
      await t.commit();
-     return objectiveId;
+     return deliverableId;
    } catch (error) {
      await t.rollback();
      throw new Error(error);
    }
  }
 
- async deleteObjective(objectiveId) {
+ async deleteDeliverable(deliverableId) {
    const t = await sequelize.transaction();
 
    try {
-     await objectiveModel.update(
+     await deliverableModel.update(
        { estado: -1 },
        {
-         where: { id: objectiveId },
+         where: { id: deliverableId },
          transaction: t,
        }
      );
      await t.commit();
-     return objectiveId;
+     return deliverableId;
    } catch (error) {
      await t.rollback();
      throw new Error(error);
@@ -87,4 +87,4 @@ async getObjective(id){
 }  
 
 }
-module.exports = ObjectiveService;
+module.exports = DeliverableService;

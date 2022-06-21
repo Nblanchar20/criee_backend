@@ -1,39 +1,39 @@
 const express = require('express')
-const  ObjectiveService= require('../services/objective')
+const  ExpenseService= require('../services/activityExpense')
 
 function actionApi(app) {
     const router = express.Router();
-    app.use('/objective', router)
+    app.use('/expense', router)
 
-    const objectiveService = new ObjectiveService();
+    const expenseService = new ExpenseService();
 
-    // Routes objectives
-    router.get("/:objectiveId", async function(req, res, next){
-        const {objectiveId}= req.params;
+    // Routes activities
+    router.get("/:expenseId", async function(req, res, next){
+        const {expenseId}= req.params;
 
     try{
-        const objective = await objectiveService.getObjective(objectiveId);
+        const expense = await expenseService.getExpense(expenseId);
 
         res.status(200).json({
-            objective,
-            message: objective
-            ?"Objetivo Encontrado"
-            :"No se encontro el Objetivo con ese ID"
+            expense,
+            message: expense
+            ?"Gasto Encontrado"
+            :"No se encontro el Gasto con ese ID"
         });
     }catch(err){
         next(err);
     }
     });
 
-    router.post("/getObjectives", async function(req,res,next){
+    router.post("/getExpenses", async function(req,res,next){
         const {body: where} = req;
         try {
-            const objectives = await objectiveService.getObjectives(where);
+            const expenses = await expenseService.getExpenses(where);
             res.status(200).json({
-                objectives,
+                expenses,
                 message:
-                objectives.length>0
-                    ? "Objetivos Listados"
+                expenses.length>0
+                    ? "Listado Gastos"
                     : "No se encuentran registros"
             })
         } catch (err) {
@@ -44,21 +44,21 @@ function actionApi(app) {
     router.post("/", async function (req, res, next) {
         const { body: data } = req;
         try {
-          const objective = await objectiveService.createObjective(data);
+          const expense = await expenseService.createExpense(data);
     
-          res.status(201).json({ objective });
+          res.status(201).json({ expense });
         } catch (error) {
           next(error);
         }
     });
 
     router.post(
-        "/updateObjective/:id",
+        "/updateExpense/:id",
         async function (req, res, next) {
           const { body: data } = req;
           const { id } = req.params;
           try {
-            const updated = await objectiveService.updateObjective(
+            const updated = await expenseService.updatExpense(
               data,
               id
             );    
@@ -77,7 +77,7 @@ function actionApi(app) {
           const { id } = req.params;
     
           try {
-            const deleted = await objectiveService.deleteObjective(
+            const deleted = await expenseService.deleteExpense(
               id
             );
     

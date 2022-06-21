@@ -1,8 +1,11 @@
-const {sequelize, Proyectos: projectModel} =require('../models');
+const {sequelize,
+       Proyectos: projectModel,
+      } =require('../models');
 
 class ProjectService{
 
-    async getProject(id){
+  // Servicios Projects
+  async getProject(id){
         const project = await projectModel.findOne({
             where: {
                 id,
@@ -70,9 +73,7 @@ class ProjectService{
         await t.rollback();
         throw new Error(error);
       }
-    }
-  
-    
+  }  
 
 }
 module.exports = ProjectService;

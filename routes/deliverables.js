@@ -1,39 +1,39 @@
 const express = require('express')
-const  ObjectiveService= require('../services/objective')
+const  DeliverableService= require('../services/deliverable')
 
 function actionApi(app) {
     const router = express.Router();
-    app.use('/objective', router)
+    app.use('/deliverable', router)
 
-    const objectiveService = new ObjectiveService();
+    const deliverableService = new DeliverableService();
 
-    // Routes objectives
-    router.get("/:objectiveId", async function(req, res, next){
-        const {objectiveId}= req.params;
+    // Routes deliverables
+    router.get("/:deliverableId", async function(req, res, next){
+        const {deliverableId}= req.params;
 
     try{
-        const objective = await objectiveService.getObjective(objectiveId);
+        const deliverable = await deliverableService.getDeliverable(deliverableId);
 
         res.status(200).json({
-            objective,
-            message: objective
-            ?"Objetivo Encontrado"
-            :"No se encontro el Objetivo con ese ID"
+            deliverable,
+            message: deliverable
+            ?"Entregable Encontrado"
+            :"No se encontro el Entregable con ese ID"
         });
     }catch(err){
         next(err);
     }
     });
 
-    router.post("/getObjectives", async function(req,res,next){
+    router.post("/getDeliverables", async function(req,res,next){
         const {body: where} = req;
         try {
-            const objectives = await objectiveService.getObjectives(where);
+            const deliverables = await deliverableService.getDeliverables(where);
             res.status(200).json({
-                objectives,
+                deliverables,
                 message:
-                objectives.length>0
-                    ? "Objetivos Listados"
+                deliverables.length>0
+                    ? "Listados Entregables"
                     : "No se encuentran registros"
             })
         } catch (err) {
@@ -44,21 +44,21 @@ function actionApi(app) {
     router.post("/", async function (req, res, next) {
         const { body: data } = req;
         try {
-          const objective = await objectiveService.createObjective(data);
+          const deliverable = await deliverableService.createDeliverable(data);
     
-          res.status(201).json({ objective });
+          res.status(201).json({ deliverable });
         } catch (error) {
           next(error);
         }
     });
 
     router.post(
-        "/updateObjective/:id",
+        "/updatedeliverable/:id",
         async function (req, res, next) {
           const { body: data } = req;
           const { id } = req.params;
           try {
-            const updated = await objectiveService.updateObjective(
+            const updated = await deliverableService.updateDeliverable(
               data,
               id
             );    
@@ -77,7 +77,7 @@ function actionApi(app) {
           const { id } = req.params;
     
           try {
-            const deleted = await objectiveService.deleteObjective(
+            const deleted = await deliverableService.deleteDeliverable(
               id
             );
     

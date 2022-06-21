@@ -1,39 +1,39 @@
 const express = require('express')
-const  ObjectiveService= require('../services/objective')
+const  RoleService= require('../services/role')
 
 function actionApi(app) {
     const router = express.Router();
-    app.use('/objective', router)
+    app.use('/role', router)
 
-    const objectiveService = new ObjectiveService();
+    const roleService = new RoleService();
 
-    // Routes objectives
-    router.get("/:objectiveId", async function(req, res, next){
-        const {objectiveId}= req.params;
+    // Routes roles
+    router.get("/:roleId", async function(req, res, next){
+        const {roleId}= req.params;
 
     try{
-        const objective = await objectiveService.getObjective(objectiveId);
+        const role = await roleService.getRole(roleId);
 
         res.status(200).json({
-            objective,
-            message: objective
-            ?"Objetivo Encontrado"
-            :"No se encontro el Objetivo con ese ID"
+            role,
+            message: role
+            ?"Rol Encontrado"
+            :"No se encontro el Rol con ese ID"
         });
     }catch(err){
         next(err);
     }
     });
 
-    router.post("/getObjectives", async function(req,res,next){
+    router.post("/getroles", async function(req,res,next){
         const {body: where} = req;
         try {
-            const objectives = await objectiveService.getObjectives(where);
+            const roles = await roleService.getRoles(where);
             res.status(200).json({
-                objectives,
+                roles,
                 message:
-                objectives.length>0
-                    ? "Objetivos Listados"
+                roles.length>0
+                    ? "Roles Listados"
                     : "No se encuentran registros"
             })
         } catch (err) {
@@ -44,21 +44,21 @@ function actionApi(app) {
     router.post("/", async function (req, res, next) {
         const { body: data } = req;
         try {
-          const objective = await objectiveService.createObjective(data);
+          const role = await roleService.createRole(data);
     
-          res.status(201).json({ objective });
+          res.status(201).json({ role });
         } catch (error) {
           next(error);
         }
     });
 
     router.post(
-        "/updateObjective/:id",
+        "/updaterole/:id",
         async function (req, res, next) {
           const { body: data } = req;
           const { id } = req.params;
           try {
-            const updated = await objectiveService.updateObjective(
+            const updated = await roleService.updatRole(
               data,
               id
             );    
@@ -77,7 +77,7 @@ function actionApi(app) {
           const { id } = req.params;
     
           try {
-            const deleted = await objectiveService.deleteObjective(
+            const deleted = await roleService.deleteRole(
               id
             );
     

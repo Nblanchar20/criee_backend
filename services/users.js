@@ -5,25 +5,30 @@ const {
     AprobacionUsuarios: userApproveModel,
   } = require("../models");
   const bcrypt = require("bcrypt");
-  const jwt = require("jsonwebtoken");
+/*   const jwt = require("jsonwebtoken"); */
   const { config } = require("../config");
-  const { encrypt } = require("../utils/crypt");
+  /* const { encrypt } = require("../utils/crypt"); */
   const SessionService = require("./sessions");
   const PermissionService = require("./permissions");
   const EmailService = require("./emails");
-  const LogService = require("./log");
+/*   const LogService = require("./log");
   
-  const logService = new LogService();
+  const logService = new LogService(); */
   
   class UserService {
     async getUser(id) {
       const user = await userModel.findOne({
         where: {
-          id,
-          estado: 1,
+            id,
+            estado: 1,
         },
-      });
-      return user;
+        include:{
+          model: userGroupModel,
+          as: "grupoUsuarios",            
+          where:{ estado:1 }
+        }
+    });
+    return user
     }
   
     async getUsers(where) {
@@ -129,7 +134,7 @@ const {
             id_usuario_aprobado: userId,
             id_usuario_aprueba: userData.id_usuario_aprueba,
           });
-          if (userData?.estado === 1) {
+          /* if (userData?.estado === 1) {
             await logService.createLog({
               ip,
               id_usuarios: userData.id_usuario_aprueba,
@@ -143,7 +148,7 @@ const {
               id_modulos: 8,
               registro: `El usuario con id ${userData.id_usuario_aprueba} canceló la aprobación del usurio con id ${userId}.`,
             });
-          }
+          } */
           
         }
   
@@ -208,7 +213,7 @@ const {
       }
     }
   
-    async signin(data) {
+/*     async signin(data) {
       const t = await sequelize.transaction();
       const sessionService = new SessionService();
       const permissionService = new PermissionService();
@@ -261,7 +266,7 @@ const {
         await t.rollback();
         throw new Error(error);
       }
-    }
+    } */
   
     async recoverAccount(where) {
       const emailService = new EmailService();

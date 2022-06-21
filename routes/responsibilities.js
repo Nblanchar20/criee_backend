@@ -1,39 +1,39 @@
 const express = require('express')
-const  ObjectiveService= require('../services/objective')
+const  ResponsibilityService= require('../services/responsibility')
 
 function actionApi(app) {
     const router = express.Router();
-    app.use('/objective', router)
+    app.use('/responsibility', router)
 
-    const objectiveService = new ObjectiveService();
+    const responsibilityService = new ResponsibilityService();
 
-    // Routes objectives
-    router.get("/:objectiveId", async function(req, res, next){
-        const {objectiveId}= req.params;
+    // Routes responsibilities
+    router.get("/:responsibilityId", async function(req, res, next){
+        const {responsibilityId}= req.params;
 
     try{
-        const objective = await objectiveService.getObjective(objectiveId);
+        const responsibility = await responsibilityService.getResponsibility(responsibilityId);
 
         res.status(200).json({
-            objective,
-            message: objective
-            ?"Objetivo Encontrado"
-            :"No se encontro el Objetivo con ese ID"
+            responsibility,
+            message: responsibility
+            ?"Responsabilidad Encontrado"
+            :"No se encontro el Responsabilidad con ese ID"
         });
     }catch(err){
         next(err);
     }
     });
 
-    router.post("/getObjectives", async function(req,res,next){
+    router.post("/getresponsibilities", async function(req,res,next){
         const {body: where} = req;
         try {
-            const objectives = await objectiveService.getObjectives(where);
+            const responsibilities = await responsibilityService.getResponsibilities(where);
             res.status(200).json({
-                objectives,
+                responsibilities,
                 message:
-                objectives.length>0
-                    ? "Objetivos Listados"
+                responsibilities.length>0
+                    ? "Responsabilidades Listados"
                     : "No se encuentran registros"
             })
         } catch (err) {
@@ -44,21 +44,21 @@ function actionApi(app) {
     router.post("/", async function (req, res, next) {
         const { body: data } = req;
         try {
-          const objective = await objectiveService.createObjective(data);
+          const responsibility = await responsibilityService.createResponsibility(data);
     
-          res.status(201).json({ objective });
+          res.status(201).json({ responsibility });
         } catch (error) {
           next(error);
         }
     });
 
     router.post(
-        "/updateObjective/:id",
+        "/updateresponsibility/:id",
         async function (req, res, next) {
           const { body: data } = req;
           const { id } = req.params;
           try {
-            const updated = await objectiveService.updateObjective(
+            const updated = await responsibilityService.updatResponsibility(
               data,
               id
             );    
@@ -77,7 +77,7 @@ function actionApi(app) {
           const { id } = req.params;
     
           try {
-            const deleted = await objectiveService.deleteObjective(
+            const deleted = await responsibilityService.deleteResponsibility(
               id
             );
     
